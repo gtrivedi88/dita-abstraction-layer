@@ -60,21 +60,45 @@ dita-abs extract task_install_rhel
 dita-abs apply task_install_rhel --edits edits.json --require-approval
 ```
 
-## Usage with Claude Code
+## How to Read a DITA File in Claude Code
 
-The intended workflow:
+**Step 1: Parse the file.** In your terminal (or ask Claude Code to run it):
 
 ```bash
-# 1. Start mock AEM
+dita-abs parse samples/task_install_rhel.dita
+```
+
+This outputs a clean JSON contract — no XML. Claude Code can read this directly.
+
+**Step 2: Ask Claude to work with it.** In your Claude Code conversation, say something like:
+
+> "Run `dita-abs parse samples/task_install_rhel.dita` and simplify the step commands for a beginner audience. Then save your edits as edits.json."
+
+Claude will:
+1. Run the parse command and see the JSON contract
+2. Understand the content (titles, steps, prerequisites — all labeled by type)
+3. Produce an `edits.json` file with its changes
+
+**Step 3: Apply the edits back to DITA.**
+
+```bash
+dita-abs apply task_install_rhel --edits edits.json --require-approval
+```
+
+This shows a plain-English change log, asks for your confirmation, then maps the edits back into valid DITA XML.
+
+## Full Workflow with Mock AEM
+
+For the complete AEM-connected workflow:
+
+```bash
+# 1. Start mock AEM server (loads sample DITA files)
 dita-abs serve &
 
-# 2. Extract content — Claude Code sees the clean JSON
+# 2. Extract content from AEM — outputs the JSON contract
 dita-abs extract task_install_rhel
 
-# 3. Ask Claude Code: "simplify these steps for beginners"
-#    Claude reads the JSON contract, produces edit JSON
-
-# 4. Apply Claude's edits back to DITA
+# 3. Ask Claude Code to edit, then apply with approval gate
 dita-abs apply task_install_rhel --edits edits.json --require-approval
 ```
 
