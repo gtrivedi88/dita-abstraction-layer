@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_containers">
+  <title>Understanding Linux containers</title>
+  <shortdesc>Linux containers provide a lightweight method for isolating applications and their dependencies from the host system.</shortdesc>
+  <conbody>
+    <section id="section_what_are_containers">
+      <title>What are containers?</title>
+      <p>Containers are isolated environments that share the host operating system kernel. Unlike virtual machines, containers do not require a separate operating system instance for each application.</p>
+      <p>Key benefits of containers include:</p>
+      <ul>
+        <li>Portability across different environments</li>
+        <li>Consistent behavior from development to production</li>
+        <li>Efficient use of system resources</li>
+        <li>Rapid application deployment and scaling</li>
+      </ul>
+    </section>
+    <section id="section_container_tools" platform="linux">
+      <title>Container tools on <ph keyref="rhel"/></title>
+      <p><ph keyref="rhel"/> provides the following tools for working with containers:</p>
+      <dl>
+        <dlentry>
+          <dt><cmdname>podman</cmdname></dt>
+          <dd>A daemonless container engine for developing, managing, and running OCI containers.</dd>
+        </dlentry>
+        <dlentry>
+          <dt><cmdname>buildah</cmdname></dt>
+          <dd>A tool for building OCI-compliant container images without requiring a running daemon.</dd>
+        </dlentry>
+        <dlentry>
+          <dt><cmdname>skopeo</cmdname></dt>
+          <dd>A utility for inspecting, copying, and signing container images across registries.</dd>
+        </dlentry>
+      </dl>
+    </section>
+    <section id="section_architecture">
+      <title>Container architecture</title>
+      <p>The following diagram illustrates the relationship between containers, images, and the host system.</p>
+      <fig>
+        <title>Container architecture overview</title>
+        <image href="images/container_architecture.png" alt="Diagram showing the layers of container architecture including the host OS, container runtime, and individual containers"/>
+      </fig>
+    </section>
+  </conbody>
+</concept>

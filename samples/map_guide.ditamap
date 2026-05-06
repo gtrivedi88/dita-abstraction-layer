@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id="guide_map">
+  <title>Red Hat Enterprise Linux 9 Getting Started Guide</title>
+  <mapref href="shared/keydefs.ditamap"/>
+  <topicref href="concept_containers.dita"/>
+  <topicref href="task_install_rhel.dita"/>
+  <topicref href="reference_cli_options.dita"/>
+</map>

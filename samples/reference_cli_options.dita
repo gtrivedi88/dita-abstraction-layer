@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="ref_cli_options">
+  <title>Podman CLI reference</title>
+  <shortdesc>Command-line options for the <cmdname>podman</cmdname> container management tool.</shortdesc>
+  <refbody>
+    <section id="section_global_options">
+      <title>Global options</title>
+      <p>The following options apply to all <cmdname>podman</cmdname> subcommands:</p>
+      <table>
+        <title>Podman global options</title>
+        <tgroup cols="3">
+          <colspec colname="option" colwidth="1*"/>
+          <colspec colname="type" colwidth="1*"/>
+          <colspec colname="description" colwidth="2*"/>
+          <thead>
+            <row>
+              <entry>Option</entry>
+              <entry>Type</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry><codeph>--connection</codeph></entry>
+              <entry>string</entry>
+              <entry>Connection to use for remote Podman service.</entry>
+            </row>
+            <row>
+              <entry><codeph>--log-level</codeph></entry>
+              <entry>string</entry>
+              <entry>Log messages at and above the specified level: <codeph>debug</codeph>, <codeph>info</codeph>, <codeph>warn</codeph>, <codeph>error</codeph>, <codeph>fatal</codeph>, <codeph>panic</codeph>.</entry>
+            </row>
+            <row>
+              <entry><codeph>--root</codeph></entry>
+              <entry>string</entry>
+              <entry>Path to the storage root directory where images and containers are stored.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    <section id="section_run_options">
+      <title>Run options</title>
+      <p>The <cmdname>podman run</cmdname> command creates and starts a container. Common options include:</p>
+      <simpletable>
+        <sthead>
+          <stentry>Option</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry><codeph>-d, --detach</codeph></stentry>
+          <stentry>Run the container in the background and print the container ID.</stentry>
+        </strow>
+        <strow>
+          <stentry><codeph>-it</codeph></stentry>
+          <stentry>Allocate a pseudo-TTY and keep STDIN open for interactive sessions.</stentry>
+        </strow>
+        <strow>
+          <stentry><codeph>-p, --publish</codeph></stentry>
+          <stentry>Publish a container port to the host. Format: <codeph>hostPort:containerPort</codeph>.</stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section id="section_examples">
+      <title>Examples</title>
+      <p>Start an interactive container:</p>
+      <codeblock>podman run -it registry.access.redhat.com/ubi9/ubi /bin/bash</codeblock>
+      <p>Run a web server in the background:</p>
+      <codeblock>podman run -d -p 8080:80 registry.access.redhat.com/ubi9/httpd-24</codeblock>
+    </section>
+  </refbody>
+</reference>

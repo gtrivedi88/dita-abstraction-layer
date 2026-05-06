@@ -1,0 +1,38 @@
+[project]
+name = "dita-abstraction"
+version = "0.1.0"
+description = "DITA Abstraction Layer — work with DITA content without raw XML"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+    "lxml>=5.0",
+    "jsonschema>=4.0",
+    "click>=8.0",
+    "flask>=3.0",
+    "requests>=2.31",
+    "deepdiff>=7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+dita-abs = "dita_abstraction.cli:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

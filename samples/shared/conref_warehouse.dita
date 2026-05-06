@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="warehouse">
+  <title>Conref warehouse</title>
+  <body>
+    <p id="min_ram_requirement">Ensure your system has at least 2 GB of RAM and 20 GB of available disk space.</p>
+    <note id="backup_warning" type="important">Back up all critical data before proceeding. This operation cannot be undone.</note>
+    <p id="subscription_note">You must have an active Red Hat subscription to access software repositories and receive updates.</p>
+    <p id="firewall_prereq">Ensure that the firewall allows traffic on the required ports. See the <xref href="reference_cli_options.dita"/> for details.</p>
+  </body>
+</topic>

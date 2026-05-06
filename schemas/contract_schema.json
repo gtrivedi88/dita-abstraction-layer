@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DITA Abstraction Contract",
+  "description": "Simplified JSON representation of DITA content for LLM interaction",
+  "type": "object",
+  "required": ["version", "source", "topic_type", "nodes"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source file path or asset identifier"
+    },
+    "topic_type": {
+      "type": "string",
+      "enum": ["task", "concept", "reference", "topic", "unknown"],
+      "description": "DITA topic type"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ContractNode"
+      }
+    }
+  },
+  "$defs": {
+    "ContractNode": {
+      "type": "object",
+      "required": ["node_id", "type", "content", "editable"],
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "pattern": "^/[a-z_]+\\[\\d+\\](/[a-z_]+\\[\\d+\\])*$",
+          "description": "Deterministic path-based node identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "title", "shortdesc", "abstract",
+            "prereq", "context", "result", "postreq",
+            "step", "step_command", "step_info", "step_result", "substep",
+            "paragraph", "section", "note", "codeblock",
+            "table", "simpletable", "table_row", "simpletable_header",
+            "simpletable_row", "table_cell", "simpletable_cell",
+            "deflist_entry", "defterm", "defdesc",
+            "list_item", "simple_list_item", "choice",
+            "image", "colspec"
+          ],
+          "description": "Semantic node type"
+        },
+        "content": {
+          "type": "string",
+          "description": "Plain text content with optional {{tag:n}} placeholders for inline markup"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "Whether the LLM is allowed to modify this node"
+        },
+        "metadata_summary": {
+          "type": ["string", "null"],
+          "description": "Human-readable note about the node (conref source, lock reason, etc.)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Edit": {
+      "type": "object",
+      "required": ["node_id", "new_content"],
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "description": "The node_id of the node to edit"
+        },
+        "new_content": {
+          "type": "string",
+          "description": "The new text content for this node"
+        },
+        "edit_type": {
+          "type": "string",
+          "enum": ["replace"],
+          "default": "replace",
+          "description": "Type of edit (V1 supports 'replace' only)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EditSet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Edit"
+      },
+      "description": "Array of edits to apply to the contract"
+    }
+  }
+}

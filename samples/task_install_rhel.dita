@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_install_rhel" audience="sysadmin">
+  <title>Installing Red Hat Enterprise Linux</title>
+  <shortdesc>This procedure describes how to install RHEL 9 on a bare-metal server.</shortdesc>
+  <taskbody>
+    <prereq>
+      <p>Before you begin, ensure that your system meets the minimum hardware requirements.</p>
+      <p conref="shared/conref_warehouse.dita#warehouse/min_ram_requirement"/>
+    </prereq>
+    <context>
+      <p>You can install <ph keyref="rhel"/> using several methods. This procedure covers the standard graphical installation from a USB drive.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>Download the <ph keyref="rhel"/> 9 ISO image from the <uicontrol>Customer Portal</uicontrol>.</cmd>
+        <info>
+          <p>You can choose between a full DVD ISO or a minimal boot ISO. For most installations, the full DVD ISO is recommended.</p>
+        </info>
+      </step>
+      <step>
+        <cmd>Create a bootable USB drive using the <cmdname>dd</cmdname> command.</cmd>
+        <info>
+          <p>Run the following command as root:</p>
+          <codeblock>dd if=<varname>/path/to/rhel9.iso</varname> of=<varname>/dev/sdX</varname> bs=4M status=progress</codeblock>
+          <note type="warning">This command will erase all data on the target device. Double-check the device path before running.</note>
+        </info>
+      </step>
+      <step>
+        <cmd>Boot the target system from the USB drive and select <uicontrol>Install Red Hat Enterprise Linux 9</uicontrol> from the boot menu.</cmd>
+        <info>
+          <p>You may need to change the boot order in the BIOS or UEFI firmware settings to boot from USB.</p>
+        </info>
+      </step>
+      <step>
+        <cmd>Follow the graphical installer to configure your installation settings.</cmd>
+        <info>
+          <p>At minimum, you must configure the following:</p>
+          <ul>
+            <li>Installation destination (disk partitioning)</li>
+            <li>Network and hostname</li>
+            <li>Root password or user account</li>
+          </ul>
+        </info>
+        <stepresult>The installer begins copying files and installing packages.</stepresult>
+      </step>
+    </steps>
+    <result>
+      <p><ph keyref="rhel"/> 9 is installed. The system reboots into the newly installed operating system.</p>
+    </result>
+    <postreq>
+      <p>After installation, register your system with <uicontrol>Red Hat Subscription Manager</uicontrol> by running <cmdname>subscription-manager register</cmdname>.</p>
+    </postreq>
+  </taskbody>
+</task>
