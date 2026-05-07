@@ -137,9 +137,27 @@ The LLM returns edits as a JSON array:
 
 **V1 handles: Content Mutation** — editing, rewriting, simplifying existing text within existing DITA nodes.
 
-**V1 does NOT handle: Structural Generation** — adding new `<step>` elements, removing sections, reordering topics. This requires a different contract type ("Insertion Contract") and is planned for V2.
+**V1 does NOT handle: Structural Generation** — adding new `<step>` elements, removing sections, reordering topics, adding/removing table rows. This is planned for V2.
 
-This is intentional. Content mutation is the common case and is safe to automate with human-in-the-loop approval. Structural changes carry higher risk.
+This is intentional. Content mutation is the common case and is safe to automate with human-in-the-loop approval. Structural changes carry higher risk and need tighter validation.
+
+## V2 Roadmap: Structural Patch Operations
+
+V2 will extend the edit format to support structural operations using the same node ID addressing system as a patch-based approach:
+
+```json
+[
+  {"op": "insert_after", "anchor": "/task[0]/taskbody[0]/steps[0]/step[1]",
+   "element": "step", "content": "Verify the installation by running..."},
+  {"op": "delete", "target": "/task[0]/taskbody[0]/steps[0]/step[2]"},
+  {"op": "reorder", "target": "/task[0]/taskbody[0]/steps[0]/step[0]",
+   "position": "after", "relative_to": "/task[0]/taskbody[0]/steps[0]/step[2]"}
+]
+```
+
+The node IDs already provide the anchoring system — we know exactly where in the DOM to insert, delete, or move. New steps, table rows, sections all follow the same pattern: an operation type, an anchor node ID, and the content.
+
+The key V2 addition is **structural validation** — enforcing DITA rules like "steps can only go inside `<steps>`" and "required elements like `<title>` cannot be deleted." This is why structural operations are separated from content mutation: they need a stricter governance layer.
 
 ## Project Structure
 
